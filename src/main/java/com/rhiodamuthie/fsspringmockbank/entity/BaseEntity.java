@@ -10,11 +10,13 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class BaseEntity {
+@MappedSuperclass
+//@Entity
+public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" , nullable = false , updatable = false)
     private Long id;
 
 //    @Column(name = "")
@@ -26,6 +28,7 @@ public class BaseEntity {
 
     private Date updatedBy;
 
-
+    @Version
+    private Integer version;
 
 }
