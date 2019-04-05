@@ -19,3 +19,13 @@ public class BaseEntity {
 
    }
 
+
+
+
+Fiels yg ada di entity harus sama dgn yg kita kirim ke view
+wkwkwkkw
+
+
+
+
+
