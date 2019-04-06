@@ -17,20 +17,20 @@ public class HomeController {
     private UserService userService;
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "redirect:/index";
     }
 
     @GetMapping("/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/signup")
-    public String signup(Model model){
+    public String signup(Model model) {
         User user = new User();
 
-        model.addAttribute("user" , user);
+        model.addAttribute("user", user);
 
         return "signup";
     }
@@ -42,11 +42,22 @@ public class HomeController {
     }
 
     @PostMapping("/signup")
-    public String signupPost(@ModelAttribute("user") User user ,  Model model){
+    public String signupPost(@ModelAttribute("user") User user, Model model) {
 
-//        if (userService.checkUserExists(user.))
+        if (userService.checkUserExists(user.getUsername(), user.getEmail())) {
+            if (userService.checkEmailExist(user.getEmail())) {
+                model.addAttribute("emailExist", true);
+            }
+            if (userService.checkUsernameExist(user.getUsername())) {
+                model.addAttribute("usernameExist", true);
+            }
 
-        return "signup";
+            return "signup";
+        } else {
+
+            userService.save(user);
+            return "redirect:/";
+        }
     }
 
 
